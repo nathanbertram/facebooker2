@@ -26,7 +26,7 @@ module Facebooker2
         if (hash_data = fb_cookie_hash_for_app_id(app_id)) and
           fb_cookie_signature_correct?(fb_cookie_hash_for_app_id(app_id),Facebooker2.secret)
           client = Mogli::Client.new(hash_data["access_token"],hash_data["expires"].to_i)
-          user = Mogli::User.find(hash_data["uid"])
+          user = Mogli::User.new(:id=>hash_data["uid"])
           user.client = @_current_facebook_client
           fb_sign_in_user_and_client(user,client)
         end
